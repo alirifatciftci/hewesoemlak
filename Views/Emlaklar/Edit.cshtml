@@ -1,0 +1,108 @@
+@model EmlakYonetim.Models.Emlak
+
+@{
+    ViewData["Title"] = "Emlak Düzenle";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>✓ Başarılı!</strong> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>✗ Hata!</strong> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h1>Emlak Düzenle</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="All" class="text-danger alert alert-danger"></div>
+            <input type="hidden" asp-for="EmlakID" />
+            <div class="form-group mb-3">
+                <label asp-for="KiraciID" class="control-label">Kiracı <span class="text-danger">*</span></label>
+                <select asp-for="KiraciID" class="form-control" asp-items="ViewBag.KiraciID"></select>
+                <span asp-validation-for="KiraciID" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="DanismanID" class="control-label">Danışman <span class="text-danger">*</span></label>
+                <select asp-for="DanismanID" class="form-control" asp-items="ViewBag.DanismanID"></select>
+                <span asp-validation-for="DanismanID" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="DurumID" class="control-label">Durum <span class="text-danger">*</span></label>
+                <select asp-for="DurumID" class="form-control" asp-items="ViewBag.DurumID"></select>
+                <span asp-validation-for="DurumID" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="TipID" class="control-label">Tip <span class="text-danger">*</span></label>
+                <select asp-for="TipID" class="form-control" asp-items="ViewBag.TipID"></select>
+                <span asp-validation-for="TipID" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Baslik" class="control-label"></label>
+                <input asp-for="Baslik" class="form-control" />
+                <span asp-validation-for="Baslik" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Aciklama" class="control-label"></label>
+                <textarea asp-for="Aciklama" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Aciklama" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Adres" class="control-label"></label>
+                <input asp-for="Adres" class="form-control" />
+                <span asp-validation-for="Adres" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Sehir" class="control-label"></label>
+                <input asp-for="Sehir" class="form-control" />
+                <span asp-validation-for="Sehir" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Fiyat" class="control-label"></label>
+                <input asp-for="Fiyat" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="Fiyat" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="AlanMetrekare" class="control-label"></label>
+                <input asp-for="AlanMetrekare" class="form-control" type="number" />
+                <span asp-validation-for="AlanMetrekare" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="OdaSayisi" class="control-label"></label>
+                <input asp-for="OdaSayisi" class="form-control" type="number" />
+                <span asp-validation-for="OdaSayisi" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="YayinTarihi" class="control-label"></label>
+                <input asp-for="YayinTarihi" class="form-control" type="datetime-local" 
+                       value="@Model.YayinTarihi.ToString("yyyy-MM-ddTHH:mm")" />
+                <span asp-validation-for="YayinTarihi" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3 form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Aktif" /> @Html.DisplayNameFor(model => model.Aktif)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Kaydet" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
