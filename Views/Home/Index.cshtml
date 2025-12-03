@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "Emlak Yönetim Sistemi";
+}
+
+<style>
+    .hero-section {
+        background: #f8f9fa;
+        padding: 2.5rem 0;
+        border-radius: 12px;
+        margin-bottom: 2.5rem;
+        border: 1px solid #e9ecef;
+    }
+
+    .dashboard-card {
+        transition: all 0.2s ease;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        background: white;
+        height: 100%;
+    }
+
+    .dashboard-card:hover {
+        border-color: #0d6efd;
+        box-shadow: 0 2px 8px rgba(13, 110, 253, 0.15);
+        cursor: pointer;
+    }
+
+    .card-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin: 0.5rem 0;
+        color: #212529;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-description {
+        color: #adb5bd;
+        font-size: 0.875rem;
+    }
+
+    .quick-access-card {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+    }
+</style>
+
+<div class="container-fluid px-4">
+    <!-- Hero Section -->
+    <div class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-5 fw-bold mb-2 text-dark">Emlak Yönetim Sistemi</h1>
+            <p class="text-muted mb-0">Profesyonel emlak yönetim platformu</p>
+        </div>
+    </div>
+
+    <!-- Database Status -->
+    @if (ViewBag.DbConnected == true)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>✓ Başarılı!</strong> Veritabanı bağlantısı aktif.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else if (ViewBag.DbConnected == false)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>✗ Hata!</strong> Veritabanı bağlantısı kurulamadı.
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <br />
+
+                <small>@ViewBag.ErrorMessage</small>
+            }
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Dashboard Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-lg-4 col-md-6">
+            <div class="card dashboard-card" onclick="window.location.href='@Url.Action("Index", "Kiracilar")'">
+                <div class="card-body p-4 text-center">
+                    <div class="card-icon">🏢</div>
+                    <h4 class="stat-label mb-2">Kiracılar</h4>
+                    <h2 class="stat-number">@(ViewBag.KiraciCount ?? 0)</h2>
+                    <p class="stat-description mb-0">Yönetmek için tıklayın</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card dashboard-card" onclick="window.location.href='@Url.Action("Index", "Emlaklar")'">
+                <div class="card-body p-4 text-center">
+                    <div class="card-icon">🏠</div>
+                    <h4 class="stat-label mb-2">Emlaklar</h4>
+                    <h2 class="stat-number">@(ViewBag.EmlakCount ?? 0)</h2>
+                    <p class="stat-description mb-0">Yönetmek için tıklayın</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card dashboard-card" onclick="window.location.href='@Url.Action("Index", "Musteriler")'">
+                <div class="card-body p-4 text-center">
+                    <div class="card-icon">👥</div>
+                    <h4 class="stat-label mb-2">Müşteriler</h4>
+                    <h2 class="stat-number">@(ViewBag.MusteriCount ?? 0)</h2>
+                    <p class="stat-description mb-0">Yönetmek için tıklayın</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Access -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card quick-access-card">
+                <div class="card-body p-4">
+                    <h5 class="card-title mb-3 fw-semibold">Hızlı Erişim</h5>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a href="@Url.Action("Create", "Kiracilar")" class="btn btn-primary btn-sm">
+                            Yeni Kiracı Ekle
+                        </a>
+                        <a href="@Url.Action("Create", "Emlaklar")" class="btn btn-success btn-sm">
+                            Yeni Emlak Ekle
+                        </a>
+                        <a href="@Url.Action("Create", "Musteriler")" class="btn btn-info btn-sm text-white">
+                            Yeni Müşteri Ekle
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

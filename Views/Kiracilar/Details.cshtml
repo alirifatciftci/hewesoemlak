@@ -1,0 +1,44 @@
+@model EmlakYonetim.Models.Kiraci
+
+@{
+    ViewData["Title"] = "Kiracı Detayları";
+}
+
+<h1>Kiracı Detayları</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Firma Adı</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.FirmaAd)</dd>
+
+        <dt class="col-sm-2">Lisans Tipi</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.LisansTipi)</dd>
+
+        <dt class="col-sm-2">Durum</dt>
+        <dd class="col-sm-10">
+            @if (Model.Aktif)
+            {
+                <span class="badge bg-success">Aktif</span>
+            }
+            else
+            {
+                <span class="badge bg-secondary">Pasif</span>
+            }
+        </dd>
+
+        <dt class="col-sm-2">Kullanıcı Sayısı</dt>
+        <dd class="col-sm-10">@Model.Kullanicilar.Count</dd>
+
+        <dt class="col-sm-2">Müşteri Sayısı</dt>
+        <dd class="col-sm-10">@Model.Musteriler.Count</dd>
+
+        <dt class="col-sm-2">Emlak Sayısı</dt>
+        <dd class="col-sm-10">@Model.Emlaklar.Count</dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.KiraciID" class="btn btn-warning">Düzenle</a>
+    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+</div>
+

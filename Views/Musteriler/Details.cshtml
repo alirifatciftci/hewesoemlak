@@ -1,0 +1,66 @@
+@model EmlakYonetim.Models.Musteri
+
+@{
+    ViewData["Title"] = "Müşteri Detayları";
+}
+
+<h1>Müşteri Detayları</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Ad Soyad</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.AdSoyad)</dd>
+
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt class="col-sm-2">Telefon</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Telefon)</dd>
+
+        <dt class="col-sm-2">Firma</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Kiraci.FirmaAd)</dd>
+
+        <dt class="col-sm-2">Talepler</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Talepler)</dd>
+
+        <dt class="col-sm-2">Kayıt Tarihi</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.KayitTarihi)</dd>
+
+        <dt class="col-sm-2">Randevu Sayısı</dt>
+        <dd class="col-sm-10">@Model.Randevular.Count</dd>
+    </dl>
+
+    @if (Model.Randevular.Any())
+    {
+        <h4 class="mt-4">Randevular</h4>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Konu</th>
+                    <th>Başlangıç</th>
+                    <th>Bitiş</th>
+                    <th>Durum</th>
+                    <th>Danışman</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var randevu in Model.Randevular)
+                {
+                    <tr>
+                        <td>@randevu.Konu</td>
+                        <td>@randevu.BaslangicZamani</td>
+                        <td>@randevu.BitisZamani</td>
+                        <td>@randevu.Durum</td>
+                        <td>@randevu.Danisman.AdSoyad</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MusteriID" class="btn btn-warning">Düzenle</a>
+    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+</div>
+
